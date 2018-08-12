@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GUI modify text (modular).iml" filepath="$PROJECT_DIR$/GUI modify text (modular).iml" />
+      <module fileurl="file://$PROJECT_DIR$/GUI_Clipboard_Text_Modifier.iml" filepath="$PROJECT_DIR$/GUI_Clipboard_Text_Modifier.iml" />
     </modules>
   </component>
 </project>

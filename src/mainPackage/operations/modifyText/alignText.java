@@ -17,9 +17,7 @@ public class alignText {
         //remove ending spaces
         String parsedStr = originalString.replaceAll("( )+", " ").trim();
         //add new lines every lineLength
-        Pattern p = Pattern.compile("(.{" + lineLength + "})", Pattern.DOTALL);
-        Matcher m = p.matcher(parsedStr);
-        parsedStr = m.replaceAll("$1" + "\n");
+        parsedStr = wrapString(parsedStr, lineLength);
         StringBuilder sb = new StringBuilder();
         Arrays.stream(parsedStr.split("\\r?\\n")).forEach(line -> sb.append(justifyString(line)+"\n"));
         return sb.toString().replaceAll("\\n$","");
@@ -31,5 +29,29 @@ public class alignText {
         line = String.format("%" + paddingStart + "s", line);
         line = String.format("%-" + lineLength + "s", line);
         return line;
+    }
+
+    public String wrapString(String string, int charWrap) {
+        int lastBreak = 0;
+        int nextBreak = charWrap;
+        if (string.length() > charWrap) {
+            String setString = "";
+            do {
+                while (string.charAt(nextBreak) != ' ' && nextBreak > lastBreak) {
+                    nextBreak--;
+                }
+                if (nextBreak == lastBreak) {
+                    nextBreak = lastBreak + charWrap;
+                }
+                setString += string.substring(lastBreak, nextBreak).trim() + "\n";
+                lastBreak = nextBreak;
+                nextBreak += charWrap;
+
+            } while (nextBreak < string.length());
+            setString += string.substring(lastBreak).trim();
+            return setString;
+        } else {
+            return string;
+        }
     }
 }
