@@ -38,7 +38,10 @@ public class plainForm {
         });
         confirmLineLength.addActionListener(e -> {
             if (!formattedTextField1.getText().isEmpty() && formattedTextField1.getText() != null) {
-                lineLength = Integer.parseInt(formattedTextField1.getText().trim());
+                if (formattedTextField1.getText().trim().matches("\\d+"))
+                    lineLength = Integer.parseInt(formattedTextField1.getText().trim());
+                else
+                    lineLength = formattedTextField1.getText().trim().length();
                 confirmLineLengthClicked = true;
                 formattedTextField1.setVisible(false);
                 lineLengthLabel.setVisible(false);
