@@ -19,8 +19,8 @@ public class alignText {
         //add new lines every lineLength
         parsedStr = wrapString(parsedStr, lineLength);
         StringBuilder sb = new StringBuilder();
-        Arrays.stream(parsedStr.split("\\r?\\n")).forEach(line -> sb.append(justifyString(line)+"\n"));
-        return sb.toString().replaceAll("\\n$","");
+        Arrays.stream(parsedStr.split("\\r?\\n")).forEach(line -> sb.append(justifyString(line) + "\n"));
+        return sb.toString().replaceAll("\\n$", "");
     }
 
     private String justifyString(String line) {
@@ -32,26 +32,12 @@ public class alignText {
     }
 
     public String wrapString(String string, int charWrap) {
-        int lastBreak = 0;
-        int nextBreak = charWrap;
-        if (string.length() > charWrap) {
-            String setString = "";
-            do {
-                while (string.charAt(nextBreak) != ' ' && nextBreak > lastBreak) {
-                    nextBreak--;
-                }
-                if (nextBreak == lastBreak) {
-                    nextBreak = lastBreak + charWrap;
-                }
-                setString += string.substring(lastBreak, nextBreak).trim() + "\n";
-                lastBreak = nextBreak;
-                nextBreak += charWrap;
+        StringBuilder sb = new StringBuilder(string);
 
-            } while (nextBreak < string.length());
-            setString += string.substring(lastBreak).trim();
-            return setString;
-        } else {
-            return string;
+        int i = 0;
+        while (i + charWrap < sb.length() && (i = sb.lastIndexOf(" ", i + charWrap)) != -1) {
+            sb.replace(i, i + 1, "\n");
         }
+        return sb.toString();
     }
 }
